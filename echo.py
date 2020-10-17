@@ -2,9 +2,10 @@
 # -*- coding: utf-8 -*-
 from controller import DRingCtrl
 
-# based on:
-# https://lists.gnu.org/archive/html/jami/2017-05/msg00023.html
-#
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# Based on:                                                     #
+# https://lists.gnu.org/archive/html/jami/2017-05/msg00023.html #
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 
 class EchoController(DRingCtrl):
     def __init__(self):
