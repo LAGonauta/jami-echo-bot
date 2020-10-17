@@ -9,4 +9,4 @@ TODO:
 - Easy to use Docker image
 
 FUTURE:
-- Add something Elisa-like
+- Add something ELIZA-like
