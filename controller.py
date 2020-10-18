@@ -704,6 +704,12 @@ class DRingCtrl(Thread):
     def sendTextMessage(self, account, to, message):
         return self.configurationmanager.sendTextMessage(account, to, { 'text/plain': message })
 
+    def getHistoryLimit(self):
+        return self.configurationmanager.getHistoryLimit()
+
+    def setHistoryLimit(self, limit):
+        return self.configurationmanager.setHistoryLimit(limit)
+
     def run(self):
         """Processing method for this thread"""
 

@@ -37,6 +37,8 @@ def removePrefix(text, prefix):
 def getOrCreateAccount():
     ctrl = DRingCtrl("Initializing", False)
 
+    ctrl.setHistoryLimit(1)
+
     accountList = ctrl.getAllEnabledAccounts()
     if accountList.__len__() > 0:
         return accountList[0]
