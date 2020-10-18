@@ -3,6 +3,8 @@
 from controller import DRingCtrl
 import time
 import qrcode
+import signal
+from gi.repository import GLib
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # Based on:                                                     #
@@ -78,4 +80,13 @@ def getOrCreateAccount():
 
 if __name__ == "__main__":
     ctrl = EchoController(getOrCreateAccount())
+
+    def stop(controller, sig):
+        controller.stopThread()
+        signal.signal(sig, signal.SIG_DFL)
+
+    signal.signal(signal.SIGINT, lambda signal, b : stop(ctrl, signal))
+    signal.signal(signal.SIGTERM, lambda signal, b : stop(ctrl, signal))
+
     ctrl.run()
+    GLib.MainLoop().quit()
