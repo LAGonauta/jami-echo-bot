@@ -17,13 +17,15 @@ RUN apt-get remove -y git && \
 
 WORKDIR /home/pi
 
-COPY ./entrypoint.sh entrypoint.sh
-
-RUN chmod +x entrypoint.sh
-
 RUN mkdir .local && mkdir .local/share && mkdir .local/share/jami
 
 RUN groupadd -r pi && useradd --no-log-init -d /home/pi -r -g pi pi
+
+WORKDIR /home/pi/jami-echo-bot
+
+COPY ./entrypoint.sh entrypoint.sh
+
+RUN chmod +x entrypoint.sh
 
 RUN chown -R pi:pi /home/pi
 
@@ -31,4 +33,4 @@ USER pi
 
 VOLUME /home/pi/.local/share/jami
 
-ENTRYPOINT ["/home/pi/entrypoint.sh"]
+ENTRYPOINT ["/home/pi/jami-echo-bot/entrypoint.sh"]
