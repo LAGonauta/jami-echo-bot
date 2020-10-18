@@ -474,6 +474,10 @@ class DRingCtrl(Thread):
             details['Account.enable'] = "false"
             self.configurationmanager.setAccountDetails(account, details)
 
+    def setAccountDetails(self, account, details):
+        account = self._valid_account(account)
+        self.configurationmanager.setAccountDetails(account, details)
+
     def setAccountRegistered(self, account=None, register=False):
         """ Tries to register the account"""
 
