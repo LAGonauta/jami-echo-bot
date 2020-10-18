@@ -1,0 +1,8 @@
+version: '3'
+services:
+  jami-chat-bot:
+    image: lags/jami-bot
+    volumes:
+      - ./data:/home/pi/.local/share/jami:rw
+    environment:
+      - TZ=America/Sao_Paulo

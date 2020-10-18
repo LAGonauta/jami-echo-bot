@@ -1,0 +1,34 @@
+FROM arm32v7/debian:10
+
+RUN apt-get update && \
+    apt-get install -y dbus git gnupg dirmngr ca-certificates python3-dbus python3-gi python3-qrcode curl --no-install-recommends && \
+    curl -s https://dl.jami.net/public-key.gpg | tee /usr/share/keyrings/jami-archive-keyring.gpg > /dev/null && \
+    sh -c "echo 'deb [signed-by=/usr/share/keyrings/jami-archive-keyring.gpg] https://dl.jami.net/internal/raspbian_10/ ring main' > /etc/apt/sources.list.d/jami.list" && \
+    apt-get update && apt-get -y install jami-daemon
+
+RUN mkdir /home/pi && \
+    cd /home/pi && \
+    git clone https://github.com/LAGonauta/jami-echo-bot.git
+    
+RUN apt-get remove -y git && \
+    apt-get autoremove -y && \
+    apt-get clean autoclean && \
+    rm -rf /var/lib/apt/lists/*
+
+WORKDIR /home/pi
+
+COPY ./entrypoint.sh entrypoint.sh
+
+RUN chmod +x entrypoint.sh
+
+RUN mkdir .local && mkdir .local/share && mkdir .local/share/jami
+
+RUN groupadd -r pi && useradd --no-log-init -d /home/pi -r -g pi pi
+
+RUN chown -R pi:pi /home/pi
+
+USER pi
+
+VOLUME /home/pi/.local/share/jami
+
+ENTRYPOINT ["/home/pi/entrypoint.sh"]
